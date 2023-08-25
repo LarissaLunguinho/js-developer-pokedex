@@ -17,11 +17,26 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     return pokemon
 }
 
+function zoomPoke(number) {
+    pokeApi.getPokemonDetail({ url: `https://pokeapi.co/api/v2/pokemon/${number}/` })
+        .then((pokemonSelecionado) => {
+            document.getElementById("name").innerHTML = pokemonSelecionado.name;
+            document.getElementById("type").innerHTML = pokemonSelecionado.type;
+            document.getElementById("photo").src = pokemonSelecionado.photo;
+
+            const modalElement = document.querySelector('#zoomPoke');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        });
+
+}
+
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
         .then((response) => response.json())
         .then(convertPokeApiDetailToPokemon)
 }
+console.log(pokeApi)
 
 pokeApi.getPokemons = (offset = 0, limit = 5) => {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
@@ -33,3 +48,4 @@ pokeApi.getPokemons = (offset = 0, limit = 5) => {
         .then((detailRequests) => Promise.all(detailRequests))
         .then((pokemonsDetails) => pokemonsDetails)
 }
+

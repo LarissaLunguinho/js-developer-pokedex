@@ -19,6 +19,7 @@ function convertPokemonToLi(pokemon) {
                 <img src="${pokemon.photo}"
                      alt="${pokemon.name}">
             </div>
+            <a href="#" class="btn btn-secondary" onclick="zoomPoke('${pokemon.number}')"><i class="bi bi-zoom-in"></i></a>
         </li>
     `
 }
